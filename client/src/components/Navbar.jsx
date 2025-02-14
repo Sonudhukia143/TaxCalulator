@@ -13,7 +13,7 @@ export default function Navbar() {
     async function logOut() {
         try {
             setLoading(true);
-            const response = await fetch('http://localhost:3000/api/logout', {
+            const response = await fetch('https://tax-calulator.vercel.app/api/logout', {
                 method: 'POST',
                 credentials: 'include',
             });

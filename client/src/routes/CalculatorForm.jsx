@@ -36,7 +36,7 @@ export default function CalculatorForm() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:3000/api/calculatetax", {
+      const response = await fetch("https://tax-calulator.vercel.app/api/calculatetax", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
