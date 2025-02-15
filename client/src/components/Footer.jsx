@@ -8,7 +8,7 @@ export default function Footer () {
           <div>
             <h2 className="text-2xl font-bold text-white">Event Manager</h2>
             <p className="mt-2 text-gray-400">
-              Seamlessly organize and manage events with ease.
+              Seamlessly calculate and manage money with ease.
             </p>
           </div>
   
@@ -16,7 +16,7 @@ export default function Footer () {
             <h3 className="text-lg font-semibold text-white mb-3">Quick Links</h3>
             <ul className="space-y-2">
               <li><Link to="/" className="hover:text-blue-400">Home</Link></li>
-              <li><Link to="/events" className="hover:text-blue-400">Events</Link></li>
+              <li><Link to="/calculate" className="hover:text-blue-400">Calculate</Link></li>
             </ul>
           </div>
         </div>
