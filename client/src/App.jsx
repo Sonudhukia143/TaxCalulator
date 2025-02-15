@@ -5,18 +5,18 @@ import Layout from './components/Layout';
 import Loader from './helperComponents/Loader.jsx';
 import './App.css';
 import { AuthProvider } from './context/AuthProvider.jsx';
+import UndefinedPath from './helperComponents/ErrorElement.jsx';
+import ErrorTemplate from './helperComponents/UndefinedPath.jsx';
 
 const Login = lazy(() => import('./routes/Login.jsx'));
 const SignIn = lazy(() => import('./routes/SignIn.jsx'));
 const Homepage = lazy(() => import('./routes/Homepage.jsx'));
-const ErrorElement = lazy(() => import('./helperComponents/ErrorElement.jsx'));
-const UndefinedPath = lazy(() => import('./helperComponents/UndefinedPath.jsx'));
 const CalculatorForm = lazy(() => import('./routes/CalculatorForm.jsx'));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<Layout />} errorElement={<ErrorElement />} >
+      <Route path="/" element={<Layout />} errorElement={<ErrorTemplate />} >
         <Route index element={
           <Suspense fallback={<Loader props={"Homepage"} />} >
             <Homepage />

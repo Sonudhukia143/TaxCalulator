@@ -27,7 +27,6 @@ export default async function calculateTaxControler(req, res) {
             });
 
             const savedRecord = await record.save();
-
             if(!savedRecord) return res.status(400).json({message:"Unable to save user"});
         }
     }
