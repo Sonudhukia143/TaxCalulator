@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthProvider.jsx";
 import Loader from "../helperComponents/Loader.jsx";
+import FlashMessage from "../helperComponents/FlashMessage.jsx";
 
 export default function Navbar() {
     const navigate = useNavigate();
@@ -9,6 +10,7 @@ export default function Navbar() {
     const toggleNav = () => setIsOpen(!isOpen);
     const { state, dispatch } = useAuthContext();
     const [loading, setLoading] = useState(false);
+    const [message,setMessage] = useState(null);
 
     async function logOut() {
         try {
@@ -22,10 +24,13 @@ export default function Navbar() {
             if (response.ok) {
                 dispatch({ type: 'LOGOUT', payload: null });
                 navigate('/');
+                setLoading(false);
+                setMessage(data.message);
             } else {
                 console.error('Failed to log out', data);
             }
         } catch (error) {
+            setLoading(false);
             console.error('Logout request failed:', error);
         } finally {
             setLoading(false);
@@ -34,7 +39,8 @@ export default function Navbar() {
 
     return (
         <>
-            {loading && <Loader message="Logging Out" />}
+            {loading && <Loader props="Logging Out" />}
+            {message && <FlashMessage message={message} />}
             <nav className="bg-gray-800">
                 <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                     <div className="relative flex h-16 items-center justify-between">

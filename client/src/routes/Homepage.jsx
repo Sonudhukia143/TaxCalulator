@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../context/AuthProvider.jsx";
 import Loader from "../helperComponents/Loader.jsx";
@@ -6,6 +6,7 @@ import FlashMessage from "../helperComponents/FlashMessage.jsx";
 
 export default function Homepage() {
     const [taxRecords, setTaxRecords] = useState([]);
+    const [AIResponse, setAIResponse] = useState("No AI Response.");
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState(null);
     const { state } = useAuthContext();
@@ -22,14 +23,15 @@ export default function Homepage() {
                         const response = await fetch('http://localhost:3000/api/taxrecords', {
                             method: 'GET',
                             headers: {
-                                "Authorization":userToken
-                        },
+                                "Authorization": userToken
+                            },
                             credentials: 'include',
                         });
 
                         const data = await response.json();
                         if (response.ok) {
                             setTaxRecords(data.records);
+                            setAIResponse(data.response);
                             setMessage(data.message);
                             setLoading(false);
                         } else {
@@ -76,39 +78,45 @@ export default function Homepage() {
 
             {/* Previous Tax Calculations */}
             <section className="py-12 px-6">
-                {message && <FlashMessage message={message} /> }
-                {loading && <Loader props={"Fetching TaxRecords"} /> }
+                {message && <FlashMessage message={message} />}
+                {loading && <Loader props={"Fetching TaxRecords"} />}
                 <h2 className="text-3xl font-semibold text-center mb-6">Your Previous Calculations</h2>
                 {isLoggedIn ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {taxRecords.length > 0 ? (
-                            taxRecords.map((record, index) => (
-                                <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-                                    <p className="text-gray-700"><strong>Income:</strong> ₹{record.income}</p>
-                                    <p className="text-gray-700"><strong>Investments:</strong> ₹{record.investments}</p>
-                                    <p className="text-gray-500 text-sm">Tax Deductions: ₹{record.deductions}</p>
-                                    <p className="text-gray-500 text-sm">Other Incomes: ₹{record.otherIncome}</p>
-                                    <p className="text-gray-500 text-sm">Calculated on: {new Date(record.timestamp).toLocaleString()}</p>
-                                </div>
-                            ))
-                        ) : (
-                            <p className="text-center text-gray-500">No tax records found.</p>
-                        )}
-                    </div>
-                ) : (
-                    <div className="text-center">
-                        <p className="text-lg font-medium">Want to track your tax history?</p>
-                        <div className="mt-4 space-x-4">
-                            <Link to="/login" className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700">
-                                Login
-                            </Link>
-                            <Link to="/signin" className="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700">
-                                Register
-                            </Link>
+                    <div>
+                        <section className="py-12 px-6">
+                            <h2 className="text-3xl font-semibold text-center mb-6">AI-Powered Tax Recommendations</h2>
+                            <p className="text-center text-gray-500">{AIResponse}</p>
+                        </section>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {taxRecords.length > 0 ? (
+                                taxRecords.map((record, index) => (
+                                    <div key={index} className="bg-white p-6 rounded-lg shadow-md">
+                                        <p className="text-gray-700"><strong>Income:</strong> ₹{record.income}</p>
+                                        <p className="text-gray-700"><strong>Investments:</strong> ₹{record.investments}</p>
+                                        <p className="text-gray-500 text-sm">Tax Deductions: ₹{record.deductions}</p>
+                                        <p className="text-gray-500 text-sm">Other Incomes: ₹{record.otherIncome}</p>
+                                        <p className="text-gray-500 text-sm">Calculated on: {new Date(record.timestamp).toLocaleString()}</p>
+                                    </div>
+                                ))
+                            ) : (
+                                <p className="text-center text-gray-500">No tax records found.</p>
+                            )}
                         </div>
-                    </div>
+                        </div>
+                        ) : (
+                        <div className="text-center">
+                            <p className="text-lg font-medium">Want to track your tax history?</p>
+                            <div className="mt-4 space-x-4">
+                                <Link to="/login" className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700">
+                                    Login
+                                </Link>
+                                <Link to="/signin" className="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700">
+                                    Register
+                                </Link>
+                            </div>
+                        </div>
                 )}
-            </section>
+                    </section>
         </div>
     );
 };
