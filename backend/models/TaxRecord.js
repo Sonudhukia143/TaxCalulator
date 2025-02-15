@@ -9,7 +9,8 @@ const TaxSchema = new mongoose.Schema({
     user: { 
         type:mongoose.Schema.Types.ObjectId , 
         ref: "User"
-    }
+    },
+    timestamp: { type: Date, default: Date.now }
 });
 
 const TaxRecord = mongoose.model("TaxRecord", TaxSchema);

@@ -9,6 +9,8 @@ import loginUser from '../routes/login.js';
 import logout from '../routes/logout.js';
 import signinuser from '../routes/signup.js';
 import calculateTax from '../routes/calculatetax.js';
+import taxRecord from '../routes/taxrecords.js';
+import authMiddleware from '../middlewares/checkAuth.js';
 
 if (process.env.NODE_ENV !== "production") {
     dotenv.config();
@@ -46,6 +48,7 @@ app.use('/api/login', loginUser);
 app.use('/api/signin', signinuser);
 app.use('/api/logout', logout);
 app.use('/api/calculatetax', calculateTax);
+app.use('/api/taxrecords',authMiddleware,taxRecord);
 app.get('/api/test', (req,res) => {
     res.json("Hello, The Backend Is Working");
 });
