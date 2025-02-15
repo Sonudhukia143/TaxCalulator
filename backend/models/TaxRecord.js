@@ -6,6 +6,8 @@ const TaxSchema = new mongoose.Schema({
     investments: Number,
     deductions: Number,
     otherIncome: Number,
+    taxableIncome:Number,
+    taxPayable:Number,
     user: { 
         type:mongoose.Schema.Types.ObjectId , 
         ref: "User"

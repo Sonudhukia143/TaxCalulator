@@ -23,9 +23,11 @@ export default function Navbar() {
             const data = await response.json();
             if (response.ok) {
                 dispatch({ type: 'LOGOUT', payload: null });
-                navigate('/');
                 setLoading(false);
                 setMessage(data.message);
+                setTimeout(() => {
+                    navigate('/');
+                }, 500);
             } else {
                 console.error('Failed to log out', data);
             }

@@ -96,6 +96,9 @@ export default function Homepage() {
                                         <p className="text-gray-500 text-sm">Tax Deductions: ₹{record.deductions}</p>
                                         <p className="text-gray-500 text-sm">Other Incomes: ₹{record.otherIncome}</p>
                                         <p className="text-gray-500 text-sm">Calculated on: {new Date(record.timestamp).toLocaleString()}</p>
+                                        <b><h4 className="text-gray-500 text-sm">Results For Income</h4></b>
+                                        <b><p className="text-gray-500 text-sm"> Taxable Income: ₹{record.taxableIncome}</p></b>
+                                        <b><p className="text-gray-500 text-sm">Tax Payable: ₹{record.taxPayable}</p></b>
                                     </div>
                                 ))
                             ) : (

@@ -21,11 +21,13 @@ export default async function calculateTaxControler(req, res) {
                 investments:investments, 
                 deductions:deductions, 
                 otherIncome:otherIncome,
-                user:user._id
+                user:user._id,
+                taxableIncome:record.taxableIncome,
+                taxPayable:record.taxPayable
             })
-            console.log(user);
+
             const savedRecord = await record.save();
-            console.log(savedRecord);
+
             if(!savedRecord) return res.status(400).json({message:"Unable to save user"});
         }
     }
