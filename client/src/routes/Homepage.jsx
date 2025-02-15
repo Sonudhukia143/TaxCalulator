@@ -20,7 +20,7 @@ export default function Homepage() {
                 const fetchRecords = async () => {
                     try {
                         setLoading(true);
-                        const response = await fetch('https://tax-calulator.vercel.app/taxrecords', {
+                        const response = await fetch('https://tax-calulator.vercel.app/api/taxrecords', {
                             method: 'GET',
                             headers: {
                                 "Authorization": userToken
