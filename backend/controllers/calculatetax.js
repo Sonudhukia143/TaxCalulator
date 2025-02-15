@@ -22,9 +22,9 @@ export default async function calculateTaxControler(req, res) {
                 deductions:deductions, 
                 otherIncome:otherIncome,
                 user:user._id,
-                taxableIncome:record.taxableIncome,
-                taxPayable:record.taxPayable
-            })
+                taxableIncome:result.taxableIncome,
+                taxPayable:result.taxPayable
+            });
 
             const savedRecord = await record.save();
 
