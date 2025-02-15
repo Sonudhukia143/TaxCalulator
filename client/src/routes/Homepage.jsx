@@ -20,7 +20,7 @@ export default function Homepage() {
                 const fetchRecords = async () => {
                     try {
                         setLoading(true);
-                        const response = await fetch('http://localhost:3000/api/taxrecords', {
+                        const response = await fetch('https://tax-calulator.vercel.app/api/taxrecords', {
                             method: 'GET',
                             headers: {
                                 "Authorization": userToken
@@ -102,21 +102,21 @@ export default function Homepage() {
                                 <p className="text-center text-gray-500">No tax records found.</p>
                             )}
                         </div>
+                    </div>
+                ) : (
+                    <div className="text-center">
+                        <p className="text-lg font-medium">Want to track your tax history?</p>
+                        <div className="mt-4 space-x-4">
+                            <Link to="/login" className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700">
+                                Login
+                            </Link>
+                            <Link to="/signin" className="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700">
+                                Register
+                            </Link>
                         </div>
-                        ) : (
-                        <div className="text-center">
-                            <p className="text-lg font-medium">Want to track your tax history?</p>
-                            <div className="mt-4 space-x-4">
-                                <Link to="/login" className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700">
-                                    Login
-                                </Link>
-                                <Link to="/signin" className="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700">
-                                    Register
-                                </Link>
-                            </div>
-                        </div>
+                    </div>
                 )}
-                    </section>
+            </section>
         </div>
     );
 };
